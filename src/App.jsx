@@ -3,6 +3,7 @@ import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import DefaultLayout from "./Layout/DefaultLayout";
 import HomePage from "./pages/HomePage";
+import { UrlProvider } from "./contexts/UrlContext";
 
 /**Definiamo due pagine principali:
 
@@ -12,13 +13,15 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/TaskList" element={<TaskList />}></Route>
-            <Route path="/AddTask" element={<AddTask />}></Route>
-          </Route>
-        </Routes>
+        <UrlProvider>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route path="/" element={<HomePage />}></Route>
+              <Route path="/TaskList" element={<TaskList />}></Route>
+              <Route path="/AddTask" element={<AddTask />}></Route>
+            </Route>
+          </Routes>
+        </UrlProvider>
       </BrowserRouter>
     </>
     /**Definire le rotte con Routes e Route, associando ogni percorso alla rispettiva pagina. */

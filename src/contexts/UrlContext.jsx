@@ -15,4 +15,17 @@ function UrlProvider({ children }) {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  return (
+    <UrlContext.Provider value={{ tasks, setTasks }}>
+      {children}
+    </UrlContext.Provider>
+  );
 }
+
+function useUrl() {
+  const context = useContext(UrlContext);
+  return context;
+}
+
+export { UrlProvider, useUrl };
