@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./HomePage";
+import TaskList from "./TaskList";
+import AddTask from "./AddTask";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/TaskList" element={<TaskList />}></Route>
+          <Route path="/AddTask" element={<AddTask />}></Route>
         </Routes>
       </BrowserRouter>
     </>
