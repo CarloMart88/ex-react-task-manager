@@ -11,11 +11,31 @@ function AddTask() {
   const textRef = useRef();
   const selectRef = useRef();
 
+  const handleSubtmit = (e) => {
+    e.preventDefault();
+    const inputGroup = [
+      textRef.current.value,
+      selectRef.current.value,
+      newTasks,
+    ];
+    if (inputGroup.some((i) => i === "")) {
+      //Il campo non può essere vuoto.
+      return alert("alcuni campi sono vuoti ");
+    } else {
+      console.log("hai stampato", inputGroup);
+    }
+
+    //faccio il reset dei parametri
+    setNewTasks("");
+    textRef.current.value = "";
+    selectRef.current.value = "To do";
+  };
+
   return (
     <>
       <div className="container">
         <div className="row">
-          <form>
+          <form onSubmit={handleSubtmit}>
             <div className="mb-3">
               {/**Nome del task (title) → Input controllato (useState). */}
               <label className="form-label">Nome del task</label>
@@ -54,6 +74,7 @@ function AddTask() {
               <option value="Doing">Doing</option>
               <option value="Done">Done</option>
             </select>
+            <button className="btn btn-primary my-2">Aggiungi il task</button>
           </form>
         </div>
       </div>
