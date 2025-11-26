@@ -1,13 +1,15 @@
 import React from "react";
 import { useUrl } from "../contexts/UrlContext";
+import TaskRow from "../components/TaskRow";
 // Milestone 3 - Lista dei Task (Pagina)
 function TaskList() {
   //Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-  const [tasks, setTasks] = useUrl();
+  const { tasks, setTasks } = useUrl();
+  console.log(tasks);
   return (
     <div>
       {/**Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione. */}
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -17,12 +19,9 @@ function TaskList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {tasks.map((t) => {
+            return <TaskRow key={t.id} t={t} />;
+          })}
         </tbody>
       </table>
     </div>
