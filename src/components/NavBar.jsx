@@ -5,8 +5,15 @@ function NavBar() {
   return (
     <div className="col-12">
       <nav>
-        <NavLink to="/TaskList">TaskList</NavLink>
-        <NavLink to="./AddTask">AddTask</NavLink>
+        <div>
+          <NavLink to="/TaskList">TaskList</NavLink>
+        </div>
+        <div>
+          <NavLink to="./AddTask">AddTask</NavLink>
+        </div>
+        <div>
+          <NavLink to="./">HomePage</NavLink>
+        </div>
       </nav>
     </div>
   );

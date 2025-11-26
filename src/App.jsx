@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import DefaultLayout from "./Layout/DefaultLayout";
-
-const baseUrl = process.env.REACT_APP_URL;
+import HomePage from "./pages/HomePage";
 
 /**Definiamo due pagine principali:
 
@@ -15,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<DefaultLayout />}>
+            <Route path="/" element={<HomePage />}></Route>
             <Route path="/TaskList" element={<TaskList />}></Route>
             <Route path="/AddTask" element={<AddTask />}></Route>
           </Route>
