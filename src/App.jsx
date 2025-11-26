@@ -3,6 +3,8 @@ import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import DefaultLayout from "./Layout/DefaultLayout";
 
+const baseUrl = process.env.REACT_APP_URL;
+
 /**Definiamo due pagine principali:
 
 Lista dei Task (TaskList.jsx) → mostrerà l'elenco dei task.
