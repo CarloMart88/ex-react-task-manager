@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
-/**Aggiornare la pagina AddTask.jsx per contenere un form con i seguenti campi:
+/**Validare il campo Nome (title):
 
-Nome del task (title) → Input controllato (useState).
-Descrizione (description) → Textarea non controllata (useRef).
-Stato (status) → Select non controllata (useRef), con opzioni "To do", "Doing", "Done", e valore predefinito "To do". */
+Il campo non può essere vuoto.
+Non può contenere simboli speciali.
+Se il valore è errato, mostrare un messaggio di errore.
+Utilizzare una costante con i caratteri vietati: */
 function AddTask() {
+  const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
   const [newTasks, setNewTasks] = useState("");
   const textRef = useRef();
   const selectRef = useRef();
+
   return (
     <>
       <div className="container">
@@ -23,6 +26,14 @@ function AddTask() {
                 value={newTasks}
                 onChange={(e) => setNewTasks(e.target.value)}
               />
+              {newTasks.length > 0 &&
+              newTasks.split("").some((char) => symbols.includes(char)) ? (
+                <p className="text-danger">
+                  Non puoi inserire simboli speciali
+                </p>
+              ) : (
+                <p className="text-success">inserisci il nome del task</p>
+              )}
               {/**Descrizione (description) → Textarea non controllata (useRef). */}
               <div className="form-floating">
                 <textarea
