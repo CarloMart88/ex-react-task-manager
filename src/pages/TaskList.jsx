@@ -5,7 +5,7 @@ import TaskRow from "../components/TaskRow";
 function TaskList() {
   //Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
   const { tasks, setTasks } = useUrl();
-  console.log(tasks);
+
   return (
     <div>
       {/**Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione. */}
