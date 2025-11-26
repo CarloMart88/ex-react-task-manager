@@ -19,7 +19,7 @@ const TaskRow = memo(({ t }) => {
   return (
     <>
       <tr>
-        <th scope="row"> {id} </th>
+        <th scope="row"></th>
         <td>{title}</td>
         <td className={check(status)}>{status}</td>
         <td>{createdAt}</td>
