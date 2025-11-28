@@ -97,9 +97,38 @@ Se success è false, lanciare un errore con message come testo. */
       throw new Error("errore nella rimozione del task" + err.message);
     }
   }
-  function updateTask(params) {}
+  /**Completare la funzione updateTask in useTasks():
+La funzione deve ricevere un oggetto updatedTask e effettuare una chiamata API PUT /tasks/:id.
+La chiamata API restituisce un oggetto con la seguente struttura:
+In caso di successo:
 
-  return { tasks, setTasks, addTask, removeTask };
+{ success: true, task: /* la task aggiornata }*/ /*
+In caso di errore:
+
+{ success: false, message: "Messaggio di errore" }
+La funzione updateTask deve controllare il valore di success nella risposta:
+Se success è true, aggiornare la task nello stato globale.
+Se success è false, lanciare un errore con message come testo. */
+  async function updateTask(id, updateData) {
+    let response;
+    try {
+      response = await fetch(`${baseUrl}/tasks/${id}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(updateData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setTasks(tasks.map((t) => (t.id === id ? data.task : t)));
+      } else {
+        alert("errore nella modifica del task");
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  return { tasks, setTasks, addTask, removeTask, updateTask };
 }
 
 export default useTasks;
