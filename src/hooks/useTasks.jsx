@@ -65,10 +65,41 @@ Se success è false, lanciare un errore con message come testo. */
       throw new Error("la task non è stata aggiunta");
     }
   }
-  function removeTask(params) {}
+
+  /**Completare la funzione removeTask in useTasks():
+La funzione deve ricevere un taskId e effettuare una chiamata API DELETE /tasks/:id.
+
+La chiamata API restituisce un oggetto con la seguente struttura:
+
+In caso di successo:
+
+{ success: true }
+In caso di errore:
+
+{ success: false, message: "Messaggio di errore" }
+La funzione removeTask deve controllare il valore di success nella risposta:
+Se success è true, rimuovere il task dallo stato globale.
+Se success è false, lanciare un errore con message come testo. */
+  async function removeTask(id) {
+    let response;
+    try {
+      response = await fetch(`${baseUrl}/tasks/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (data.success) {
+        console.log("task eliminato con successo");
+        setTasks((prev) => prev.filter((p) => String(p.id) !== String(id)));
+      } else {
+        console.error(data.message);
+      }
+    } catch (err) {
+      throw new Error("errore nella rimozione del task" + err.message);
+    }
+  }
   function updateTask(params) {}
 
-  return { tasks, setTasks, addTask };
+  return { tasks, setTasks, addTask, removeTask };
 }
 
 export default useTasks;
