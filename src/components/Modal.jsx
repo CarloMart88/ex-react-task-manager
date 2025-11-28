@@ -29,10 +29,10 @@ function Modal({
         <div className="modale">
           <h2>{title}</h2>
           <p>{content}</p>
-          <button className="btn btn-warning" onClick={onClose}>
+          <button className="btn btn-warning m-1" onClick={onClose}>
             Annulla
           </button>
-          <button className="btn btn-primary" onClick={onConfirm}>
+          <button className="btn btn-primary m-1" onClick={onConfirm}>
             Conferma
           </button>
         </div>
