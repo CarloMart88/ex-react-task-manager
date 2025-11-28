@@ -24,7 +24,7 @@ const TaskRow = memo(({ t }) => {
       <tr>
         <th scope="row"></th>
         <td>
-          <NavLink to="/task/:id">{title}</NavLink>
+          <NavLink to={`/task/${id}`}>{title}</NavLink>
         </td>
         <td className={check(status)}>{status}</td>
         <td>{createdAt}</td>
