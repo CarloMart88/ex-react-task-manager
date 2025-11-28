@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import useTasks from "../hooks/useTasks";
 /**Validare il campo Nome (title):
 
 Il campo non può essere vuoto.
@@ -10,8 +11,9 @@ function AddTask() {
   const [newTasks, setNewTasks] = useState("");
   const textRef = useRef();
   const selectRef = useRef();
+  const { addTask } = useTasks();
 
-  const handleSubtmit = (e) => {
+  const handleSubtmit = async (e) => {
     e.preventDefault();
     const inputGroup = [
       textRef.current.value,
@@ -25,6 +27,18 @@ function AddTask() {
       console.log("hai stampato", inputGroup);
     }
 
+    const newTask = {
+      title: newTasks,
+      description: textRef.current.value,
+      status: selectRef.current.value,
+    };
+
+    try {
+      const result = await addTask(newTask);
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
     //faccio il reset dei parametri
     setNewTasks("");
     textRef.current.value = "";

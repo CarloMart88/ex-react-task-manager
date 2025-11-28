@@ -32,34 +32,37 @@ Resettare il form.
 Se la funzione lancia un errore:
 Mostrare un alert con il messaggio di errore ricevut */
   async function addTask(newTask) {
-    let success;
     newTask = {
       title: newTask.title,
       description: newTask.description,
       status: newTask.status,
     };
-    const response = await fetch(`${baseUrl}/tasks`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(newTask),
-    }).catch((err) => {
-      console.error({ success: false, message: "Messaggio di errore:", err });
-      alert(`Errore: ${err}`);
-    });
+    let response;
+    try {
+      response = await fetch(`${baseUrl}/tasks`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      });
+    } catch (err) {
+      {
+        console.error(err);
+        alert(`Errore: ${err}`);
+      }
+    }
 
     const data = await response.json();
-    if (data) {
-      console.log({ success: true, task: data }),
+    if (data.success === true) {
+      console.log({ success: true, task: data.task }),
         alert("creazione del task avvenuta");
-    }
-    /**Se success è true, aggiornare lo stato globale aggiungendo la nuova task.
-Se success è false, lanciare un errore con message come testo. */
-    if (success === true) {
-      return setTasks([...tasks, data]);
+      setTasks([...tasks, data.task]);
+      return data.task;
     } else {
-      return tasks;
+      /**Se success è true, aggiornare lo stato globale aggiungendo la nuova task.
+Se success è false, lanciare un errore con message come testo. */
+      throw new Error("la task non è stata aggiunta");
     }
   }
   function removeTask(params) {}
