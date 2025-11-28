@@ -25,13 +25,19 @@ function Modal({
   return (
     show &&
     createPortal(
-      <div className="modal-container">
-        <div className="modal">
+      <div className="contenitore-modale">
+        <div className="modale">
           <h2>{title}</h2>
           <p>{content}</p>
-          <button className="btn btn-primary"></button>
+          <button className="btn btn-warning" onClick={onClose}>
+            Annulla
+          </button>
+          <button className="btn btn-primary" onClick={onConfirm}>
+            Conferma
+          </button>
         </div>
-      </div>
+      </div>,
+      document.body
     )
   );
 }

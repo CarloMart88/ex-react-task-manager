@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { useUrl } from "../contexts/UrlContext";
 import useTasks from "../hooks/useTasks";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
 
 /**Gestire l'eliminazione della task in TaskDetail.jsx:
 Al click su "Elimina Task", chiamare removeTask passando l'id del task.
@@ -18,10 +19,10 @@ function TaskDetail() {
   const { removeTask } = useTasks();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   const taskFind = tasks.find((t) => String(t.id) === String(id));
   const removeSubmit = async (e) => {
-    e.preventDefault();
     try {
       await removeTask(id);
       alert("Task rimosso");
@@ -40,9 +41,24 @@ function TaskDetail() {
           <p>{taskFind.description}</p>
           <p>{taskFind.status}</p>
           <p>{taskFind.createdAt}</p>
-          <button className="btn btn-warning col-4" onClick={removeSubmit}>
+          <button
+            className="btn btn-warning col-4"
+            onClick={() => setShowModal(true)}
+          >
             Elimina Task
           </button>
+          <Modal
+            title="Conferma eliminazione"
+            content="Sei sicuro di voler eliminare questo task?"
+            show={showModal}
+            onClose={() => {
+              setShowModal(false);
+            }}
+            onConfirm={async () => {
+              await removeSubmit();
+              setShowModal(false);
+            }}
+          />
         </div>
       </div>
     );
