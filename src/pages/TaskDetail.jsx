@@ -23,7 +23,12 @@ function TaskDetail() {
           <p>{taskFind.description}</p>
           <p>{taskFind.status}</p>
           <p>{taskFind.createdAt}</p>
-          <button className="btn btn-warning col-4">Elimina Task</button>
+          <button
+            className="btn btn-warning col-4"
+            onClick={() => console.log("Elimino task")}
+          >
+            Elimina Task
+          </button>
         </div>
       </div>
     );
