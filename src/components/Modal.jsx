@@ -28,7 +28,7 @@ function Modal({
       <div className="contenitore-modale">
         <div className="modale">
           <h2>{title}</h2>
-          <p>{content}</p>
+          <div>{content}</div>
           <button className="btn btn-warning m-1" onClick={onClose}>
             Annulla
           </button>

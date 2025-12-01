@@ -5,6 +5,7 @@ import { useUrl } from "../contexts/UrlContext";
 import useTasks from "../hooks/useTasks";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
+import EditTaskModal from "../components/EditTaskModal";
 
 /**Gestire l'eliminazione della task in TaskDetail.jsx:
 Al click su "Elimina Task", chiamare removeTask passando l'id del task.
@@ -20,6 +21,7 @@ function TaskDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [showEditTaskModal, setShowEditTaskModal] = useState(false);
 
   const taskFind = tasks.find((t) => String(t.id) === String(id));
   const removeSubmit = async (e) => {
@@ -42,7 +44,7 @@ function TaskDetail() {
           <p>{taskFind.status}</p>
           <p>{taskFind.createdAt}</p>
           <button
-            className="btn btn-warning col-4"
+            className="btn btn-warning col-3 m-1"
             onClick={() => setShowModal(true)}
           >
             Elimina Task
@@ -59,6 +61,12 @@ function TaskDetail() {
               setShowModal(false);
             }}
           />
+          <button
+            className="btn btn-primary col-3 m-1"
+            onClick={() => setShowEditTaskModal(true)}
+          >
+            Modifica
+          </button>
         </div>
       </div>
     );
