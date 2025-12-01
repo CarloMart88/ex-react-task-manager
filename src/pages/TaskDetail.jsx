@@ -17,7 +17,7 @@ Mostrare un alert con il messaggio di errore ricevuto. */
 
 function TaskDetail() {
   const { tasks } = useUrl();
-  const { removeTask } = useTasks();
+  const { removeTask, updateTask } = useTasks();
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -39,10 +39,10 @@ function TaskDetail() {
     return (
       <div className="col-8 m-5">
         <div className="row">
-          <p>{taskFind.title}</p>
-          <p>{taskFind.description}</p>
-          <p>{taskFind.status}</p>
-          <p>{taskFind.createdAt}</p>
+          <p>Titolo: {taskFind.title}</p>
+          <p>Descrizione: {taskFind.description}</p>
+          <p>Status: {taskFind.status}</p>
+          <p>Creato in data: {taskFind.createdAt}</p>
           <button
             className="btn btn-warning col-3 m-1"
             onClick={() => setShowModal(true)}
@@ -67,6 +67,16 @@ function TaskDetail() {
           >
             Modifica
           </button>
+          <EditTaskModal
+            show={showEditTaskModal}
+            onClose={() => setShowEditTaskModal(false)}
+            task={taskFind}
+            onSave={(newTask) => {
+              updateTask(id, newTask);
+              alert("nuova task aggiornata");
+              setShowEditTaskModal(false);
+            }}
+          />
         </div>
       </div>
     );
