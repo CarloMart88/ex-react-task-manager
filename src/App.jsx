@@ -17,10 +17,9 @@ function App() {
         <UrlProvider>
           <Routes>
             <Route element={<DefaultLayout />}>
-              <Route index element={<HomePage />}></Route>
-              <Route path="/task" element={<TaskList />}></Route>
-              <Route path="/task/:id" element={<TaskDetail />}></Route>
-              <Route path="/AddTask" element={<AddTask />}></Route>
+              <Route path="/" index element={<TaskList />}></Route>
+              <Route path="/:id" element={<TaskDetail />}></Route>
+              <Route path="/add" element={<AddTask />}></Route>
             </Route>
           </Routes>
         </UrlProvider>

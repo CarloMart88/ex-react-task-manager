@@ -7,13 +7,10 @@ function NavBar() {
       <div className="row ">
         <nav className="d-flex flex-row">
           <div className="m-2">
-            <NavLink to="/task">TaskList</NavLink>
+            <NavLink to="/">TaskList</NavLink>
           </div>
           <div className="m-2">
-            <NavLink to="./AddTask">AddTask</NavLink>
-          </div>
-          <div className="m-2">
-            <NavLink to="./">HomePage</NavLink>
+            <NavLink to="/add">AddTask</NavLink>
           </div>
         </nav>
       </div>

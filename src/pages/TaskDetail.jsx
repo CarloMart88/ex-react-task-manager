@@ -28,7 +28,7 @@ function TaskDetail() {
     try {
       await removeTask(id);
       alert("Task rimosso");
-      navigate("/task");
+      navigate("/");
     } catch (err) {
       alert(err.message);
       throw new Error("errore nella rimozione del task" + err.message);
