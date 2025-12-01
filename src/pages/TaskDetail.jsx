@@ -71,8 +71,8 @@ function TaskDetail() {
             show={showEditTaskModal}
             onClose={() => setShowEditTaskModal(false)}
             task={taskFind}
-            onSave={(newTask) => {
-              updateTask(id, newTask);
+            onSave={async (newTask) => {
+              await updateTask(id, newTask);
               alert("nuova task aggiornata");
               setShowEditTaskModal(false);
             }}
