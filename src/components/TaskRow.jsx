@@ -22,12 +22,11 @@ const TaskRow = memo(({ t }) => {
   return (
     <>
       <tr>
-        <th scope="row"></th>
         <td>
           <NavLink to={`/${id}`}>{title}</NavLink>
         </td>
         <td className={check(status)}>{status}</td>
-        <td>{createdAt}</td>
+        <td>{new Date(createdAt).toLocaleDateString()}</td>
       </tr>
     </>
   );

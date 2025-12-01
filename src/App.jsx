@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
 import DefaultLayout from "./Layout/DefaultLayout";
-import HomePage from "./pages/HomePage";
+
 import TaskDetail from "./pages/TaskDetail";
 import { UrlProvider } from "./contexts/UrlContext";
 

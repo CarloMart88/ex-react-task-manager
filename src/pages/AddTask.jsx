@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import useTasks from "../hooks/useTasks";
+import { UrlProvider, useUrl } from "../contexts/UrlContext";
 /**Validare il campo Nome (title):
 
 Il campo non può essere vuoto.
@@ -11,7 +12,7 @@ function AddTask() {
   const [newTasks, setNewTasks] = useState("");
   const textRef = useRef();
   const selectRef = useRef();
-  const { addTask } = useTasks();
+  const { addTask } = useUrl();
 
   const handleSubtmit = async (e) => {
     e.preventDefault();

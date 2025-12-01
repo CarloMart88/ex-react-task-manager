@@ -4,7 +4,7 @@ import TaskRow from "../components/TaskRow";
 // Milestone 3 - Lista dei Task (Pagina)
 function TaskList() {
   //Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-  const { tasks, setTasks } = useUrl();
+  const { tasks } = useUrl();
 
   return (
     <div>
@@ -12,7 +12,6 @@ function TaskList() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Nome</th>
             <th scope="col">Stato</th>
             <th scope="col">Data di Creazione</th>
