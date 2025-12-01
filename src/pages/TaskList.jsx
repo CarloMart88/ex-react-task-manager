@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUrl } from "../contexts/UrlContext";
 import TaskRow from "../components/TaskRow";
 // Milestone 3 - Lista dei Task (Pagina)
 function TaskList() {
   //Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-  const { tasks } = useUrl();
+  const { tasks, setTasks } = useUrl();
+  const [sortBy, setSortBy] = useState("createdAt");
+  const [sortOrder, setSortOrder] = useState(1);
+
+  const handleSort = (field) => {
+    if (sortBy === field) {
+      setSortOrder((prev) => prev * -1);
+    } else {
+      setSortBy(field);
+      setSortOrder(1);
+    }
+  };
 
   return (
     <div>
@@ -12,9 +23,9 @@ function TaskList() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Stato</th>
-            <th scope="col">Data di Creazione</th>
+            <th onClick={() => handleSort("title")}>Nome</th>
+            <th onClick={() => handleSort("status")}>Stato</th>
+            <th onClick={() => handleSort("createdAt")}>Data di Creazione</th>
           </tr>
         </thead>
         <tbody>
