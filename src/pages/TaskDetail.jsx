@@ -16,8 +16,8 @@ Se la funzione lancia un errore:
 Mostrare un alert con il messaggio di errore ricevuto. */
 
 function TaskDetail() {
-  const { tasks } = useUrl();
-  const { removeTask, updateTask } = useTasks();
+  const { tasks, removeTask, updateTask } = useUrl();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -39,10 +39,13 @@ function TaskDetail() {
     return (
       <div className="col-8 m-5">
         <div className="row">
+          <h1>Dettaglio della task</h1>
           <p>Titolo: {taskFind.title}</p>
           <p>Descrizione: {taskFind.description}</p>
           <p>Status: {taskFind.status}</p>
-          <p>Creato in data: {taskFind.createdAt}</p>
+          <p>
+            Creato in data: {new Date(taskFind.createdAt).toLocaleDateString()}
+          </p>
           <button
             className="btn btn-warning col-3 m-1"
             onClick={() => setShowModal(true)}

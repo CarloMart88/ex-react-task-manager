@@ -23,7 +23,7 @@ const TaskRow = memo(({ t }) => {
     <>
       <tr>
         <td>
-          <NavLink to={`/${id}`}>{title}</NavLink>
+          <NavLink to={`task/${id}`}>{title}</NavLink>
         </td>
         <td className={check(status)}>{status}</td>
         <td>{new Date(createdAt).toLocaleDateString()}</td>

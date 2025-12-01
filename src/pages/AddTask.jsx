@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
 import useTasks from "../hooks/useTasks";
-import { UrlProvider, useUrl } from "../contexts/UrlContext";
+import { useUrl } from "../contexts/UrlContext";
+import { useNavigate } from "react-router-dom";
 /**Validare il campo Nome (title):
 
 Il campo non può essere vuoto.
 Non può contenere simboli speciali.
 Se il valore è errato, mostrare un messaggio di errore.
 Utilizzare una costante con i caratteri vietati: */
+
 function AddTask() {
+  const navigate = useNavigate();
   const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
   const [newTasks, setNewTasks] = useState("");
   const textRef = useRef();
@@ -35,8 +38,7 @@ function AddTask() {
     };
 
     try {
-      const result = await addTask(newTask);
-      return result;
+      await addTask(newTask);
     } catch (err) {
       console.log(err);
     }
@@ -44,6 +46,7 @@ function AddTask() {
     setNewTasks("");
     textRef.current.value = "";
     selectRef.current.value = "To do";
+    navigate("/");
   };
 
   return (

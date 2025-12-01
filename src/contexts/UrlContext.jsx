@@ -7,11 +7,13 @@ const UrlContext = createContext();
 
 function UrlProvider({ children }) {
   //Integrare useTasks() nel GlobalContext, in modo che tutti i componenti possano accedere ai task e alle funzioni di gestione
-  const { tasks, setTasks, addTask } = useTasks();
+  const { tasks, setTasks, addTask, removeTask, updateTask } = useTasks();
   //Effettuare una richiesta GET a /tasks al caricamento dell'app, utilizzando useEffect, e salvare i dati nello stato.
 
   return (
-    <UrlContext.Provider value={{ tasks, setTasks, addTask }}>
+    <UrlContext.Provider
+      value={{ tasks, setTasks, addTask, removeTask, updateTask }}
+    >
       {children}
     </UrlContext.Provider>
   );
