@@ -30,13 +30,24 @@ function TaskList() {
   };
 
   const sortedTask = useMemo(() => {
-    if (searchQuery === "") {
-      return tasks;
-    } else {
-      return tasks.filter((t) =>
-        t.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+    return [...tasks]
+      .filter((t) => t.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      .sort((a, b) => {
+        let comparison;
+        if (sortBy === "title") {
+          comparison = a.title.localeCompare(b.title);
+        } else if (sortBy === "status") {
+          const Possibilty = ["To do", "Doing", "Done"];
+          comparison =
+            Possibilty.indexOf(a.status) - Possibilty.indexOf(b.status);
+        } else if (sortBy === "createdAt") {
+          const newDateA = new Date(a.createdAt).getTime();
+          const newDateB = new Date(b.createdAt).getTime();
+          comparison = newDateA - newDateB;
+        }
+
+        return comparison * sortOrder;
+      });
   }, [searchQuery, sortBy, sortOrder, tasks]);
 
   return (
