@@ -1,14 +1,15 @@
 import React, { useMemo, useState, useCallback } from "react";
-
 import { useUrl } from "../contexts/UrlContext";
 import TaskRow from "../components/TaskRow";
+
 // Milestone 3 - Lista dei Task (Pagina)
 function TaskList() {
   //Recuperare la lista dei task dal GlobalContext e mostrarla nella pagina TaskList.jsx.
-  const { tasks, setTasks } = useUrl();
+  const { tasks } = useUrl();
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setSortOrder] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+
   // creo una funzione di debounce
   function debounce(callback, delay) {
     let timer;
@@ -46,30 +47,63 @@ function TaskList() {
           const newDateB = new Date(b.createdAt).getTime();
           comparison = newDateA - newDateB;
         }
-
         return comparison * sortOrder;
       });
   }, [searchQuery, sortBy, sortOrder, tasks]);
 
   const debounceSortedTask = useCallback(debounce(setSearchQuery, 500), []);
+
   return (
-    <div>
+    <div className="container mt-4">
       {/**Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione. */}
-      <input type="text" onChange={(e) => debounceSortedTask(e.target.value)} />
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("title")}>Nome</th>
-            <th onClick={() => handleSort("status")}>Stato</th>
-            <th onClick={() => handleSort("createdAt")}>Data di Creazione</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedTask.map((t) => {
-            return <TaskRow key={t.id} t={t} />;
-          })}
-        </tbody>
-      </table>
+      <div className="row mb-3">
+        <div className="col-md-6">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Cerca per nome..."
+            onChange={(e) => debounceSortedTask(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h4 className="card-title mb-3 text-primary">Lista dei Task</h4>
+          <table className="table table-hover table-bordered align-middle">
+            <thead className="table-light">
+              <tr>
+                <th
+                  scope="col"
+                  className="cursor-pointer"
+                  onClick={() => handleSort("title")}
+                >
+                  Nome
+                </th>
+                <th
+                  scope="col"
+                  className="cursor-pointer"
+                  onClick={() => handleSort("status")}
+                >
+                  Stato
+                </th>
+                <th
+                  scope="col"
+                  className="cursor-pointer"
+                  onClick={() => handleSort("createdAt")}
+                >
+                  Data di Creazione
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedTask.map((t) => {
+                return <TaskRow key={t.id} t={t} />;
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

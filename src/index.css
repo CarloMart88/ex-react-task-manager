@@ -21,3 +21,109 @@
   overflow-y: auto;
   display: block; 
 }
+
+
+body {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%); 
+  color: #2f3e46; 
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #2f3e46, #52796f); 
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  color: #fefae0 !important;
+  font-weight: 700;
+}
+
+.nav-link {
+  color: #fefae0 !important;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #dda15e !important;
+}
+
+
+.card {
+  border-radius: 10px;
+  background-color: #fefae0; 
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.card:hover {
+ box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  color: #2f3e46; 
+}
+
+
+.btn-primary {
+  background: linear-gradient(90deg, #52796f, #84a98c);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #84a98c, #52796f);
+}
+
+.btn-danger {
+  background: linear-gradient(90deg, #bc6c25, #d77a3e); /* arancio/marrone autunnale */
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(90deg, #d77a3e, #bc6c25);
+}
+
+
+.table thead {
+  background: #52796f;
+  color: #fefae0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9edc9;
+}
+
+
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 2px solid #84a98c;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #bc6c25;
+  box-shadow: 0 0 0 0.25rem rgba(188,108,37,.25);
+}
+
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5em 0.75em;
+  border-radius: 6px;
+}
+
+.badge.bg-success {
+  background: linear-gradient(90deg, #84a98c, #52796f);
+}
+
+.badge.bg-warning {
+  background: linear-gradient(90deg, #dda15e, #bc6c25);
+  color: #212529;
+}
+
+.badge.bg-secondary {
+  background: linear-gradient(90deg, #6c757d, #2f3e46);
+}
+
+

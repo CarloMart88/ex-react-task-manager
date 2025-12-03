@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
 import { useUrl } from "../contexts/UrlContext";
-import useTasks from "../hooks/useTasks";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 import EditTaskModal from "../components/EditTaskModal";
@@ -24,7 +22,8 @@ function TaskDetail() {
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
 
   const taskFind = tasks.find((t) => String(t.id) === String(id));
-  const removeSubmit = async (e) => {
+
+  const removeSubmit = async () => {
     try {
       await removeTask(id);
       alert("Task rimosso");
@@ -37,49 +36,80 @@ function TaskDetail() {
 
   if (taskFind) {
     return (
-      <div className="col-8 m-5">
-        <div className="row">
-          <h1>Dettaglio della task</h1>
-          <p>Titolo: {taskFind.title}</p>
-          <p>Descrizione: {taskFind.description}</p>
-          <p>Status: {taskFind.status}</p>
-          <p>
-            Creato in data: {new Date(taskFind.createdAt).toLocaleDateString()}
-          </p>
-          <button
-            className="btn btn-warning col-3 m-1"
-            onClick={() => setShowModal(true)}
-          >
-            Elimina Task
-          </button>
-          <Modal
-            title="Conferma eliminazione"
-            content="Sei sicuro di voler eliminare questo task?"
-            show={showModal}
-            onClose={() => {
-              setShowModal(false);
-            }}
-            onConfirm={async () => {
-              await removeSubmit();
-              setShowModal(false);
-            }}
-          />
-          <button
-            className="btn btn-primary col-3 m-1"
-            onClick={() => setShowEditTaskModal(true)}
-          >
-            Modifica
-          </button>
-          <EditTaskModal
-            show={showEditTaskModal}
-            onClose={() => setShowEditTaskModal(false)}
-            task={taskFind}
-            onSave={async (newTask) => {
-              await updateTask(id, newTask);
-              alert("nuova task aggiornata");
-              setShowEditTaskModal(false);
-            }}
-          />
+      <div className="container mt-4">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <h1 className="card-title text-primary mb-4">
+                  Dettaglio della task
+                </h1>
+                <ul className="list-group list-group-flush mb-3">
+                  <li className="list-group-item">
+                    <strong>Titolo:</strong> {taskFind.title}
+                  </li>
+                  <li className="list-group-item">
+                    <strong>Descrizione:</strong> {taskFind.description}
+                  </li>
+                  <li className="list-group-item">
+                    <strong>Status:</strong>{" "}
+                    <span
+                      className={
+                        taskFind.status === "Done"
+                          ? "badge bg-success"
+                          : taskFind.status === "Doing"
+                          ? "badge bg-warning text-dark"
+                          : "badge bg-secondary"
+                      }
+                    >
+                      {taskFind.status}
+                    </span>
+                  </li>
+                  <li className="list-group-item">
+                    <strong>Creato in data:</strong>{" "}
+                    {new Date(taskFind.createdAt).toLocaleDateString()}
+                  </li>
+                </ul>
+
+                <div className="d-flex justify-content-start">
+                  <button
+                    className="btn btn-danger me-2"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Elimina Task
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShowEditTaskModal(true)}
+                  >
+                    Modifica
+                  </button>
+                </div>
+
+                <Modal
+                  title="Conferma eliminazione"
+                  content="Sei sicuro di voler eliminare questo task?"
+                  show={showModal}
+                  onClose={() => setShowModal(false)}
+                  onConfirm={async () => {
+                    await removeSubmit();
+                    setShowModal(false);
+                  }}
+                />
+
+                <EditTaskModal
+                  show={showEditTaskModal}
+                  onClose={() => setShowEditTaskModal(false)}
+                  task={taskFind}
+                  onSave={async (newTask) => {
+                    await updateTask(id, newTask);
+                    alert("nuova task aggiornata");
+                    setShowEditTaskModal(false);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

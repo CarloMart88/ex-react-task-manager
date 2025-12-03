@@ -51,49 +51,71 @@ function AddTask() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <form onSubmit={handleSubtmit}>
-            <div className="mb-3">
-              {/**Nome del task (title) → Input controllato (useState). */}
-              <label className="form-label">Nome del task</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Scrivi qui..."
-                value={newTasks}
-                onChange={(e) => setNewTasks(e.target.value)}
-              />
-              {newTasks.length > 0 &&
-              newTasks.split("").some((char) => symbols.includes(char)) ? (
-                <p className="text-danger">
-                  Non puoi inserire simboli speciali
-                </p>
-              ) : (
-                <p className="text-success">inserisci il nome del task</p>
-              )}
-              {/**Descrizione (description) → Textarea non controllata (useRef). */}
-              <div className="form-floating">
-                <textarea
-                  className="form-control"
-                  placeholder="Leave a comment here"
-                  ref={textRef}
-                ></textarea>
-                <label htmlFor="floatingTextarea">Descrizione</label>
+      <div className="container mt-4">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <h4 className="card-title mb-4 text-primary">
+                  Aggiungi un nuovo task
+                </h4>
+                <form onSubmit={handleSubtmit}>
+                  <div className="mb-3">
+                    {/**Nome del task (title) → Input controllato (useState). */}
+                    <label className="form-label fw-bold">Nome del task</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Scrivi qui..."
+                      value={newTasks}
+                      onChange={(e) => setNewTasks(e.target.value)}
+                    />
+                    {newTasks.length > 0 &&
+                    newTasks
+                      .split("")
+                      .some((char) => symbols.includes(char)) ? (
+                      <p className="text-danger mt-2">
+                        Non puoi inserire simboli speciali
+                      </p>
+                    ) : (
+                      <p className="text-success mt-2">
+                        inserisci il nome del task
+                      </p>
+                    )}
+                  </div>
+
+                  {/**Descrizione (description) → Textarea non controllata (useRef). */}
+                  <div className="form-floating mb-3">
+                    <textarea
+                      className="form-control"
+                      placeholder="Leave a comment here"
+                      ref={textRef}
+                      style={{ height: "100px" }}
+                    ></textarea>
+                    <label htmlFor="floatingTextarea">Descrizione</label>
+                  </div>
+
+                  {/**Stato (status) → Select non controllata (useRef), con opzioni "To do", "Doing", "Done", e valore predefinito "To do". */}
+                  <div className="mb-3">
+                    <label className="form-label fw-bold">Stato</label>
+                    <select
+                      className="form-select"
+                      ref={selectRef}
+                      defaultValue={"To do"}
+                    >
+                      <option value="To do">To do</option>
+                      <option value="Doing">Doing</option>
+                      <option value="Done">Done</option>
+                    </select>
+                  </div>
+
+                  <button className="btn btn-primary w-100">
+                    Aggiungi il task
+                  </button>
+                </form>
               </div>
-              {/**Stato (status) → Select non controllata (useRef), con opzioni "To do", "Doing", "Done", e valore predefinito "To do". */}
             </div>
-            <select
-              className="form-select"
-              ref={selectRef}
-              defaultValue={"To do"}
-            >
-              <option value="To do">To do</option>
-              <option value="Doing">Doing</option>
-              <option value="Done">Done</option>
-            </select>
-            <button className="btn btn-primary my-2">Aggiungi il task</button>
-          </form>
+          </div>
         </div>
       </div>
     </>
