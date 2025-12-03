@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useUrl } from "../contexts/UrlContext";
 import TaskRow from "../components/TaskRow";
 // Milestone 3 - Lista dei Task (Pagina)
@@ -17,6 +17,25 @@ function TaskList() {
     }
   };
 
+  const sortedTask = useMemo(() => {
+    return [...tasks].sort((a, b) => {
+      let comparison;
+      if (sortBy === "title") {
+        comparison = a.title.localeCompare(b.title);
+      } else if (sortBy === "status") {
+        const Possibilty = ["To do", "Doing", "Done"];
+        comparison =
+          Possibilty.indexOf(a.status) - Possibilty.indexOf(b.status);
+      } else if (sortBy === "createdAt") {
+        const newDateA = new Date(a.createdAt).getTime();
+        const newDateB = new Date(b.createdAt).getTime();
+        comparison = newDateA - newDateB;
+      }
+
+      return comparison * sortOrder;
+    });
+  }, [sortBy, sortOrder, tasks]);
+
   return (
     <div>
       {/**Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione. */}
@@ -29,7 +48,7 @@ function TaskList() {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((t) => {
+          {sortedTask.map((t) => {
             return <TaskRow key={t.id} t={t} />;
           })}
         </tbody>
