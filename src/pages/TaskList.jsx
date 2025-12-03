@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
+
 import { useUrl } from "../contexts/UrlContext";
 import TaskRow from "../components/TaskRow";
 // Milestone 3 - Lista dei Task (Pagina)
@@ -50,14 +51,11 @@ function TaskList() {
       });
   }, [searchQuery, sortBy, sortOrder, tasks]);
 
+  const debounceSortedTask = useCallback(debounce(setSearchQuery, 500), []);
   return (
     <div>
       {/**Strutturare TaskList.jsx come una tabella, con le intestazioni Nome, Stato, Data di Creazione. */}
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      <input type="text" onChange={(e) => debounceSortedTask(e.target.value)} />
       <table className="table">
         <thead>
           <tr>
